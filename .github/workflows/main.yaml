@@ -62,4 +62,21 @@ jobs:
       - name: Configure kubectl with EKS cluster
         run: |
           aws eks --region us-west-2 update-kubeconfig --name springboot-cluster
-          cat ~/.
+          cat ~/.kube/config
+
+      - name: Validate kubectl configuration
+        env:
+          KUBECONFIG: ~/.kube/config
+        run: |
+          kubectl get nodes
+
+      - name: Print k8s directory contents
+        run: |
+          ls -l k8s/
+
+      - name: Deploy to EKS
+        env:
+          KUBECONFIG: ~/.kube/config
+        run: |
+          kubectl apply -f k8s/deployment.yaml --validate=false
+          kubectl apply -f k8s/service.yaml --validate=false
