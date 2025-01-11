@@ -64,12 +64,6 @@ jobs:
           aws eks --region us-west-2 update-kubeconfig --name springboot-cluster
           cat ~/.kube/config
 
-      - name: Validate kubectl configuration
-        env:
-          KUBECONFIG: ~/.kube/config
-        run: |
-          kubectl get nodes
-
       - name: Print k8s directory contents
         run: |
           ls -l k8s/
