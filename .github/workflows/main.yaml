@@ -60,7 +60,9 @@ jobs:
           sudo mv /tmp/eksctl /usr/local/bin
 
       - name: Configure kubectl with EKS cluster
-        run: eksctl utils write-kubeconfig --region us-west-2 --cluster springboot-cluster
+        run: |
+          eksctl utils write-kubeconfig --region us-west-2 --cluster springboot-cluster
+          sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/' ~/.kube/config
 
       - name: Deploy to EKS
         run: |
