@@ -27,12 +27,10 @@ jobs:
 
       - name: Build with Maven
         run: |
-          cd your_project_directory
           mvn clean install
 
       - name: Build Docker image
         run: |
-          cd your_project_directory
           docker build -t springboot-app:latest .
 
       - name: Set up AWS credentials
