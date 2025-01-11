@@ -62,7 +62,13 @@ jobs:
       - name: Configure kubectl with EKS cluster
         run: |
           aws eks --region us-west-2 update-kubeconfig --name springboot-cluster
-          sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/' ~/.kube/config
+          cat ~/.kube/config
+
+      - name: Validate kubectl configuration
+        run: |
+          kubectl get nodes
+        env:
+          KUBECONFIG: ~/.kube/config
 
       - name: Print k8s directory contents
         run: |
